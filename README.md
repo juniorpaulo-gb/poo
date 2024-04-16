@@ -1,2 +1,2 @@
 # poo
-Projeto para estar POO
+Projeto para estudar POO
