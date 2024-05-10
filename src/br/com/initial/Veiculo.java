@@ -1,11 +1,14 @@
 package br.com.initial;
 
+import java.util.Collection;
+
 public class Veiculo {
     private Long id;
     private String marca;
     private String modelo;
     private Double valorDiaria;
     private Double valorKmAdicional;
+    private Collection<Locacao> locacaos;
 
     public Long getId() {
         return id;
@@ -45,5 +48,13 @@ public class Veiculo {
 
     public void setValorKmAdicional(Double valorKmAdicional) {
         this.valorKmAdicional = valorKmAdicional;
+    }
+
+    public Collection<Locacao> getLocacaos() {
+        return locacaos;
+    }
+
+    public void setLocacaos(Collection<Locacao> locacaos) {
+        this.locacaos = locacaos;
     }
 }

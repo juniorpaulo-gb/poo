@@ -1,6 +1,7 @@
 package br.com.initial;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Locacao {
     private Long id;
@@ -9,6 +10,17 @@ public class Locacao {
     private Long kmRetirada;
     private Long kmDevolucao;
     private Boolean paga;
+
+    private Locatario locatario;
+    private Veiculo veiculo;
+
+    public Locacao(Locatario locatario , Veiculo veiculo){
+        this.setVeiculo(veiculo);//garantir nao nulo
+        this.setLocatario(locatario);//garantir nao nulo
+        this.setInicio(new Date());
+
+
+    }
 
     public Long getId() {
         return id;
@@ -57,6 +69,49 @@ public class Locacao {
     public void setPaga(Boolean paga) {
         this.paga = paga;
     }
+
+
+    public Locatario getLocatario() {
+        return locatario;
+    }
+
+    public void setLocatario(Locatario locatario) {
+        this.locatario = locatario;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
+
+    public boolean isDevolvido(){
+        return this.fim != null;
+    }
+
+    public Boolean pagamentoEmAberto(){
+        return  this.isDevolvido() && !this.getPaga();
+    }
+
+    public Double valorTotal(){
+        return this.duracaoEmDias() * this.getVeiculo().getValorDiaria();
+    }
+
+    public Long duracaoEmDias(){
+        return TimeUnit.DAYS.convert(this.duracaoEmMilisegundos(), TimeUnit.MILLISECONDS);
+    }
+
+    private long duracaoEmMilisegundos() {
+        if (!isDevolvido()){
+            return 0;
+        }
+        return this.getFim().getTime() - this.getInicio().getTime();
+    }
+
+
+
 
 
 }
